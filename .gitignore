@@ -1,0 +1,4 @@
+__pycache__/
+cv_writer.ipynb
+chat_history.json
+.DS_Store
