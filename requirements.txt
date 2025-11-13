@@ -1,0 +1,33 @@
+# Core async + agent framework
+agents==0.0.16
+anyio>=4.4.0
+asyncio>=3.4.3
+
+# UI
+gradio>=4.43.0
+
+# File and environment utilities
+python-dotenv>=1.0.1
+shutilwhich>=1.1.0
+
+# Document conversion
+pypandoc>=1.13
+
+# Markdown display (for notebooks / IPython)
+ipython>=8.25.0
+
+# Data handling (optional, for databank agents)
+pandas>=2.2.2
+
+# LLM access (OpenAI / Agent SDK)
+openai>=1.46.0
+
+# MCP client/server (filesystem + database integration)
+mcp>=0.2.0
+libsql-client>=0.3.0
+
+# PDF handling (optional for resume workflows)
+reportlab>=4.1.0
+
+# Optional extras for stability and tracing
+tqdm>=4.66.5
