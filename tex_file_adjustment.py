@@ -24,8 +24,12 @@ async def get_tex_evaluator_agent_tool() -> Tool:
     tex_evaluator_agent = await get_tex_evaluator_agent()
     return tex_evaluator_agent.as_tool(
             tool_name="evaluate_tex_file",
-            tool_description="Use this tool to evaluate a LaTeX document you have written and get feedback on its quality.\
-                Provide the text content of the .tex file as input, NOT the file path."
+            tool_description=(
+                "Evaluate the quality of a LaTeX resume. "
+                "Provide the FULL TEXT CONTENT of the .tex file as input (never the file path). "
+                "The evaluator will return either APPROVED or REJECTED with actionable feedback. "
+                "Use this tool after generating or revising a .tex file."
+            )
     )
 
 async def get_tex_writer_agent(tex_writer_mcp_servers, databank_management_mcp_servers) -> Agent:
@@ -36,12 +40,14 @@ async def get_tex_writer_agent(tex_writer_mcp_servers, databank_management_mcp_s
         tools=[await get_databank_management_agent_tool(databank_management_mcp_servers), tex_to_pdf, await get_tex_evaluator_agent_tool()],
         model="gpt-4o",
         handoff_description=(
-            "You are able to read and write files in your local directory, especially .tex files. "
-            "After writing the resume .tex file, open it and read its content. "
-            "Then call your 'evaluate_tex_content' tool, passing the text content (not the file path). "
-            "If the evaluation result says REJECTED, revise the .tex file accordingly and try again."
-            "After you have finished, save your work both as PDF and as .tex file. Tell the user where are they saved."
-        )
+            "You can read and write LaTeX files in the local './sandbox/Resume' directory. "
+            "Your workflow is: (1) retrieve candidate/job info using databank tools, "
+            "(2) read the LaTeX template, (3) generate a personalized .tex resume, "
+            "(4) open the generated file and pass its *content* to your evaluation tool, "
+            "(5) if the evaluation returns REJECTED, revise the .tex file and evaluate again "
+            "until APPROVED, and (6) finally convert the approved .tex file to PDF using tex_to_pdf. "
+            "Save both the final .tex and final .pdf inside './sandbox/Resume'."
+            )
     )
     return tex_writer_agent
 

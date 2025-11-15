@@ -56,7 +56,10 @@ async def get_file_management_agent_tool(file_management_mcp_servers) -> Tool:
     file_management_agent = await get_file_management_agent(file_management_mcp_servers)
     return file_management_agent.as_tool(
             tool_name="file_management_agent_tool",
-            tool_description="Use this tool to do read and understand files in your local folder"
+            tool_description=(
+                "Use this tool to read, list, and summarize files inside the './sandbox' directory. "
+                "It is especially useful for reading resumes (PDFs) or LaTeX files before processing them."
+            )
         )
 
 async def run():
@@ -67,7 +70,7 @@ async def run():
         file_management_agent = await get_file_management_agent(file_servers)
 
         message = "Tell me the only name of files you have, no need to tell me anything about the content, only file names."
-        cv_path = "Lebenslauf_ZS.pdf"
+        cv_path = "Lebenslauf_ZeyuanSun.pdf"
         message = f"The candidate's old resume is {cv_path}, see if you can read and understand it."
 
         with trace("test file management agent"):

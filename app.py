@@ -77,4 +77,4 @@ with gr.Blocks() as demo:
     msg.submit(chat_with_agent, [msg, chatbot, file_input, url_input, tex_input], [chatbot, msg, file_input, url_input, tex_input])
     clear.click(clear_history, None, chatbot, queue=False)
 
-demo.launch()
+demo.launch(share=True)

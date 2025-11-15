@@ -24,7 +24,11 @@ async def get_databank_management_agent_tool(databank_management_mcp_servers) ->
     databank_management_agent = await get_databank_management_agent(databank_management_mcp_servers)
     return databank_management_agent.as_tool(
             tool_name="databank_management_agent_tool",
-            tool_description="This tool manages a databank, it can save or retrieve usefull information from it."
+            tool_description=(
+                "Use this tool to save or retrieve information from the knowledge-graph databank." 
+                "Always provide clear and comprehensive summaries when retrieving data."
+                )
+
         )
 
 async def run():
